@@ -1,0 +1,121 @@
+/* Мои бронирования: кнопка в шапке, окно со списком, подпись «Вы забронировали этот авто» */
+
+/* ---------- Шапка: всё помещается в одну строку ---------- */
+/* Отступы меню зависят от ширины экрана, а подписи не переносятся на вторую строку */
+.header__inner .header__nav{margin-left:clamp(16px,3.5vw,64px);gap:clamp(16px,3.5vw,64px);min-width:0}
+.header__inner .header__link{white-space:nowrap;display:inline-block;transition:transform .2s ease}
+/* при наведении пункт меню чуть увеличивается */
+.header__inner .header__link:hover{transform:scale(1.1)}
+/* на широких экранах меню сдвинуто правее (расстояния между пунктами остаются равными) */
+@media (min-width:1000px){
+  .header__inner .header__nav{margin-left:clamp(40px,7vw,120px)}
+}
+.header__inner .header__user{max-width:120px}
+
+/* ---------- Кнопка в шапке ---------- */
+.header__inner .header__bookings{
+  box-sizing:border-box;display:inline-flex;align-items:center;gap:8px;flex-shrink:0;white-space:nowrap;
+  height:42px;padding:0 22px;margin-left:auto;border:1px solid #000;background:#fff;color:#000;cursor:pointer;
+  font:500 14px 'Roboto',sans-serif;text-transform:uppercase;transition:background .2s,color .2s;
+}
+.header__inner .header__bookings:hover{background:#000;color:#fff}
+.header__inner .header__bookings:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.header__inner .header__auth{margin-left:16px;flex-shrink:0}
+.header__bookings-count{
+  box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;
+  min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#000;color:#fff;
+  font-size:12px;font-weight:700;
+}
+.header__bookings-count[hidden]{display:none}
+.header__bookings:hover .header__bookings-count{background:#fff;color:#000}
+
+/* ---------- Забронированная машина ---------- */
+.card__btn.is-booked,
+.cardetail__book.is-booked{background:#2e7d32;cursor:default}
+.card__btn.is-booked:hover,
+.cardetail__book.is-booked:hover{background:#2e7d32}
+
+/* ---------- Окно «Мои брони» ---------- */
+.mybookings{
+  box-sizing:border-box;position:relative;
+  width:100%;max-width:520px;max-height:calc(100vh - 40px);overflow:auto;padding:40px;background:#fff;
+}
+.mybookings__close{
+  position:absolute;top:8px;right:16px;
+  background:none;border:0;font-size:32px;cursor:pointer;
+}
+.mybookings__title{margin:0 0 24px;font-size:24px;font-weight:500}
+.mybookings__empty{margin:0;font-size:16px;color:#555}
+.mybookings__empty[hidden]{display:none}
+.mybookings__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+.mybookings__item{display:flex;align-items:center;gap:16px;padding:0 0 16px;border-bottom:1px solid #e5e5e5}
+.mybookings__item:last-child{padding-bottom:0;border-bottom:0}
+.mybookings__img{flex-shrink:0;display:block;width:120px;height:80px;object-fit:cover;background:#f2f2f2}
+.mybookings__info{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.mybookings__name{font-size:18px;font-weight:500;line-height:1.25}
+.mybookings__date{font-size:14px;color:#555}
+.mybookings__cancel{
+  box-sizing:border-box;flex-shrink:0;height:40px;padding:0 16px;
+  border:1px solid #d32f2f;background:#fff;color:#d32f2f;cursor:pointer;
+  font:500 13px 'Roboto',sans-serif;text-transform:uppercase;transition:background .2s,color .2s;
+}
+.mybookings__cancel:hover{background:#d32f2f;color:#fff}
+.mybookings__cancel:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+
+/* ---------- Окно «Вы уверены в отмене?» ---------- */
+.cancelbox{
+  box-sizing:border-box;position:relative;
+  width:100%;max-width:440px;max-height:calc(100vh - 40px);overflow:auto;padding:40px;background:#fff;
+}
+.cancelbox__close{
+  position:absolute;top:8px;right:16px;
+  background:none;border:0;font-size:32px;cursor:pointer;
+}
+.cancelbox__title{margin:0 0 8px;padding-right:24px;font-size:24px;font-weight:500}
+.cancelbox__car{margin:0 0 20px;font-size:16px;color:#555}
+.cancelbox__hint{margin:0 0 10px;font-size:14px;color:#555}
+.cancelbox__reasons{display:flex;flex-direction:column;gap:8px;margin:0 0 12px}
+.cancelbox__reason{
+  box-sizing:border-box;display:flex;align-items:center;gap:12px;min-height:50px;padding:0 16px;
+  border:1px solid #222;cursor:pointer;font-size:16px;transition:background .2s;
+}
+.cancelbox__reason:hover{background:#f2f2f2}
+.cancelbox__reason:focus-within{outline:2px solid #2196f3;outline-offset:2px}
+.cancelbox__reason:has(.cancelbox__radio:checked){background:#f2f2f2;box-shadow:inset 0 0 0 1px #000}
+.cancelbox__radio{flex-shrink:0;width:18px;height:18px;margin:0;accent-color:#000}
+.cancelbox__msg{margin:0;min-height:18px;font-size:15px;color:#d32f2f}
+.cancelbox__actions{display:flex;gap:12px;margin-top:12px}
+.cancelbox__ok{
+  box-sizing:border-box;flex:1;height:54px;padding:0;border:0;cursor:pointer;
+  background:#000;color:#fff;font:500 16px 'Roboto',sans-serif;text-transform:uppercase;transition:background .2s;
+}
+.cancelbox__ok:hover{background:#333}
+.cancelbox__ok:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.cancelbox__dismiss{
+  box-sizing:border-box;flex:1;height:54px;padding:0;border:1px solid #000;cursor:pointer;
+  background:#fff;color:#000;font:500 16px 'Roboto',sans-serif;text-transform:uppercase;transition:background .2s,color .2s;
+}
+.cancelbox__dismiss:hover{background:#000;color:#fff}
+.cancelbox__dismiss:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+
+/* ---------- Адаптив ---------- */
+@media (max-width:1280px){
+  .header__inner .header__user{display:none}      /* имя скрываем, остаётся аватар */
+}
+@media (max-width:900px){
+  .header__inner{gap:12px}
+  .header__inner .header__link{font-size:14px}
+  .header__inner .header__bookings{padding:0 16px}
+  .header__bookings-prefix{display:none}           /* «Мои брони» → «Брони» */
+}
+@media (max-width:800px){
+  .header__inner .header__nav{display:none}        /* меню прячем, чтобы не наезжало на кнопки */
+}
+@media (max-width:560px){
+  .header__inner .header__bookings{padding:0 14px}
+  .mybookings{padding:32px 20px 24px}
+  .mybookings__img{width:96px;height:64px}
+  .mybookings__item{flex-wrap:wrap}
+  .mybookings__cancel{width:100%}
+  .cancelbox{padding:32px 20px 24px}
+}

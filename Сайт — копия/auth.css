@@ -1,0 +1,125 @@
+/* Страница входа и регистрации: у каждого элемента свой класс */
+
+.auth-page{
+  margin:0;min-height:100vh;
+  font-family:'Roboto',Arial,sans-serif;color:#000;background:#fff;overflow-x:hidden;
+}
+
+/* ---------- Шапка ---------- */
+.auth-header{border-bottom:1px solid #e5e5e5}
+.auth-header__inner{
+  box-sizing:border-box;max-width:1240px;margin:0 auto;padding:0 20px;height:89px;
+  display:flex;align-items:center;
+}
+.auth-header__logo{display:block}
+.auth-header__logo-img{display:block;height:42px;width:auto}
+
+/* ---------- Основная часть ---------- */
+.auth-main{
+  position:relative;box-sizing:border-box;
+  max-width:1240px;margin:0 auto;padding:70px 20px 80px;
+  display:flex;align-items:center;gap:40px;min-height:calc(100vh - 90px);
+}
+.auth-card{width:100%;max-width:440px;flex-shrink:0;position:relative;z-index:2;background:#fff}
+.auth-car{
+  display:block;flex:1;min-width:0;width:55%;max-width:760px;margin-left:auto;
+  animation:auth-car-drive 2.4s cubic-bezier(.22,.61,.36,1) .2s backwards;
+}
+@keyframes auth-car-drive{
+  from{transform:translateX(40vw);opacity:0}
+  25% {opacity:1}
+  to  {transform:translateX(0);opacity:1}
+}
+
+/* ---------- Вкладки ---------- */
+.auth-box{display:block}
+.auth-tabs{display:flex;margin:0 0 36px;border-bottom:1px solid #222}
+.auth-tabs__tab{
+  flex:1;height:54px;border:0;background:#fff;color:#777;cursor:pointer;
+  font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+  border-bottom:3px solid transparent;margin-bottom:-1px;
+}
+.auth-tabs__tab:hover{color:#000}
+.auth-tabs__tab.is-active{color:#000;border-bottom-color:#000}
+.auth-tabs__tab:focus-visible{outline:2px solid #2196f3;outline-offset:-2px}
+
+/* ---------- Форма ---------- */
+.auth-form{display:flex;flex-direction:column;gap:14px}
+.auth-form[hidden]{display:none}
+.auth-form__title{margin:0;font-size:36px;font-weight:700;line-height:1.1}
+.auth-form__subtitle{margin:0 0 10px;font-size:16px;color:#555}
+.auth-field{display:flex;flex-direction:column;gap:4px}
+.auth-field__input{
+  box-sizing:border-box;width:100%;height:58px;padding:0 18px;
+  border:1px solid #222;border-radius:0;background:#fff;color:#000;
+  font:400 17px 'Roboto',sans-serif;
+}
+.auth-field__input::placeholder{color:#777}
+.auth-field__input:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.auth-field__input.is-error{border-color:#d32f2f}
+.auth-field__error{margin:0;min-height:0;font-size:14px;color:#d32f2f}
+.auth-field__error:empty{display:none}
+.auth-field__label{font-size:14px;color:#555}
+.auth-field__hint{margin:0;font-size:14px;color:#555}
+.auth-field__hint:empty{display:none}
+
+/* Пароль с кнопкой «Показать» */
+.auth-pass{position:relative}
+.auth-pass__input{
+  box-sizing:border-box;width:100%;height:58px;padding:0 100px 0 18px;
+  border:1px solid #222;border-radius:0;background:#fff;color:#000;
+  font:400 17px 'Roboto',sans-serif;
+}
+.auth-pass__input::placeholder{color:#777}
+.auth-pass__input:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.auth-pass__input.is-error{border-color:#d32f2f}
+.auth-pass__eye{
+  position:absolute;top:0;right:0;height:100%;padding:0 16px;
+  border:0;background:none;cursor:pointer;color:#555;font:400 14px 'Roboto',sans-serif;
+}
+.auth-pass__eye:hover{color:#000}
+
+/* Капча при входе */
+.auth-captcha{display:flex;align-items:stretch;gap:12px}
+.auth-captcha__img{
+  display:block;flex-shrink:0;width:180px;height:58px;
+  border:1px solid #222;background:#f2f2f2;user-select:none;
+}
+.auth-captcha__refresh{
+  box-sizing:border-box;flex:1;min-width:0;height:58px;padding:0 12px;
+  border:1px solid #000;background:#fff;color:#000;cursor:pointer;
+  font:500 13px 'Roboto',sans-serif;text-transform:uppercase;transition:background .2s,color .2s;
+}
+.auth-captcha__refresh:hover{background:#000;color:#fff}
+.auth-captcha__refresh:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+
+.auth-remember{display:flex;align-items:center;gap:10px;cursor:pointer}
+.auth-remember__box{width:18px;height:18px;margin:0;accent-color:#000}
+.auth-remember__text{font-size:15px}
+
+.auth-form__btn{
+  box-sizing:border-box;width:100%;height:58px;margin-top:6px;padding:0;border:0;cursor:pointer;
+  background:#000;color:#fff;font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+  transition:background .2s;
+}
+.auth-form__btn:hover{background:#333}
+.auth-form__btn:disabled{background:#777;cursor:wait}
+.auth-form__btn:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.auth-form__msg{margin:0;min-height:20px;font-size:15px}
+.auth-form__msg.is-ok{color:#2e7d32}
+.auth-form__msg.is-error{color:#d32f2f}
+.auth-form__switch{margin:0;font-size:15px;color:#555}
+.auth-form__link{
+  padding:0;border:0;background:none;cursor:pointer;
+  color:#000;font:500 15px 'Roboto',sans-serif;text-decoration:underline;
+}
+
+/* ---------- Адаптив ---------- */
+@media (max-width:1000px){
+  .auth-main{flex-direction:column;align-items:stretch;padding-top:40px}
+  .auth-card{max-width:none}
+  .auth-car{width:100%;max-width:560px;margin:20px auto 0}
+}
+@media (max-width:560px){
+  .auth-form__title{font-size:28px}
+}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luxorides — аренда премиальных автомобилей</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bookings.css">
+  <!-- Страница только для вошедших: без входа отправляем на страницу входа -->
+  <script src="auth-core.js"></script>
+  <script>if (!Auth.currentUser()) location.replace('index.html');</script>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body class="page">
+
+  <!-- ШАПКА -->
+  <header class="header">
+    <div class="header__inner">
+      <a class="header__logo" href="#hero">
+        <img class="header__logo-img" src="images/logo.png" alt="Luxorides">
+      </a>
+      <nav class="header__nav">
+        <a class="header__link" href="#hero">Главная</a>
+        <a class="header__link" href="#fleet">Автомобили</a>
+        <a class="header__link" href="#booking">Бронирование авто</a>
+      </nav>
+      <button class="header__bookings" id="bookingsBtn" type="button"><span class="header__bookings-text"><span class="header__bookings-prefix">Мои </span>брони</span> <span class="header__bookings-count" id="bookingsCount" hidden>0</span></button>
+      <div class="header__auth" id="headerAuth"></div>
+    </div>
+  </header>
+
+  <!-- ГЛАВНЫЙ ЭКРАН -->
+  <section class="hero" id="hero">
+    <span class="hero__bg-text" aria-hidden="true">URUS</span>
+    <div class="hero__inner">
+      <div class="hero__content">
+        <h1 class="hero__title">Аренда премиальных автомобилей</h1>
+        <p class="hero__text">В нашем клубе имеется солидная коллекция спортивных автомобилей — от достаточно распространенных серийных машин до настоящего гоночного эксклюзива. Воспользуйтесь уникальной возможностью побывать за рулем настоящей легенды и узнать, на что она способна за пределами гоночной трассы!</p>
+        <a class="hero__btn" href="#fleet">Посмотреть автомобили</a>
+      </div>
+    </div>
+    <img class="hero__car" src="images/urus.png" alt="Lamborghini Urus">
+  </section>
+
+  <!-- АВТОПАРК -->
+  <section class="fleet" id="fleet">
+    <div class="fleet__inner">
+      <h2 class="fleet__title">Наш автопарк</h2>
+      <div class="fleet__toolbar">
+        <input class="fleet__search" type="search" id="searchInput" placeholder="Найти любую марку или модель">
+        <select class="fleet__make" id="makeSelect" aria-label="Марка">
+          <option value="">Все марки</option>
+        </select>
+        <button class="fleet__refresh" id="refreshBtn" type="button">Другая подборка</button>
+      </div>
+      <p class="fleet__status" id="status" role="status"></p>
+      <div class="fleet__cards" id="cards"></div>
+      <button class="fleet__more" id="moreBtn" type="button" hidden>Показать ещё</button>
+    </div>
+  </section>
+
+  <!-- БРОНИРОВАНИЕ -->
+  <section class="booking" id="booking">
+    <div class="booking__inner">
+      <h2 class="booking__title">Узнать цену и забронировать</h2>
+      <p class="booking__subtitle">Заполните данные, и мы перезвоним вам для уточнения всех деталей бронирования</p>
+      <div class="booking__row">
+        <form class="booking__form" id="bookingForm" novalidate>
+          <input class="booking__input" type="text" name="name" placeholder="Ваше имя" required>
+          <input class="booking__input" type="tel" name="phone" placeholder="Ваш телефон" required>
+          <select class="booking__select" name="car" id="carSelect" required>
+            <option value="" disabled selected>Автомобиль, который вас интересует</option>
+          </select>
+          <button class="booking__btn" type="submit">Узнать цену</button>
+          <p class="booking__msg" id="formMsg" role="status"></p>
+        </form>
+        <img class="booking__car" src="images/rolls-royce.png" alt="Rolls-Royce Ghost">
+      </div>
+    </div>
+  </section>
+
+  <!-- ПОДВАЛ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <a class="footer__logo" href="#hero">
+        <img class="footer__logo-img" src="images/logo.png" alt="Luxorides">
+      </a>
+      <span class="footer__text">@HappuFace</span>
+    </div>
+  </footer>
+
+  <!-- ОКНО БРОНИРОВАНИЯ -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__close" id="modalClose" aria-label="Закрыть">×</button>
+      <h3 class="modal__title" id="modalTitle">Забронировать</h3>
+      <form class="modal__form" id="modalForm" novalidate>
+        <input class="modal__input" type="text" name="name" placeholder="Ваше имя" required>
+        <input class="modal__input" type="tel" name="phone" placeholder="Ваш телефон" required>
+        <button class="modal__btn" type="submit">Забронировать</button>
+        <p class="modal__msg" id="modalMsg" role="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ОКНО ХАРАКТЕРИСТИК МАШИНЫ -->
+  <div class="modal" id="carModal" aria-hidden="true">
+    <div class="cardetail" role="dialog" aria-modal="true" aria-labelledby="carName">
+      <button class="cardetail__close" id="carClose" type="button" aria-label="Закрыть">×</button>
+      <img class="cardetail__img" id="carImg" alt="">
+      <div class="cardetail__body">
+        <h3 class="cardetail__name" id="carName"></h3>
+        <button class="cardetail__lang" id="carLang" type="button" hidden>Перевести на русский</button>
+        <dl class="cardetail__specs" id="carSpecs"></dl>
+        <p class="cardetail__desc" id="carDesc"></p>
+        <a class="cardetail__link" id="carLink" href="#" target="_blank" rel="noopener" hidden>Подробнее в Wikipedia</a>
+        <button class="cardetail__book" id="carBook" type="button">Забронировать эту машину</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОКНО «МОИ БРОНИ» -->
+  <div class="modal" id="bookingsModal" aria-hidden="true">
+    <div class="mybookings" role="dialog" aria-modal="true" aria-labelledby="bookingsTitle">
+      <button class="mybookings__close" id="bookingsClose" type="button" aria-label="Закрыть">×</button>
+      <h3 class="mybookings__title" id="bookingsTitle">Мои бронирования</h3>
+      <p class="mybookings__empty" id="bookingsEmpty">Вы пока ничего не бронировали.</p>
+      <ul class="mybookings__list" id="bookingsList"></ul>
+    </div>
+  </div>
+
+  <!-- ОКНО ПОДТВЕРЖДЕНИЯ ОТМЕНЫ БРОНИ -->
+  <div class="modal" id="cancelModal" aria-hidden="true">
+    <div class="cancelbox" role="dialog" aria-modal="true" aria-labelledby="cancelTitle">
+      <button class="cancelbox__close" id="cancelClose" type="button" aria-label="Закрыть">×</button>
+      <h3 class="cancelbox__title" id="cancelTitle">Вы уверены в отмене?</h3>
+      <p class="cancelbox__car" id="cancelCar"></p>
+      <p class="cancelbox__hint">Выберите причину отмены:</p>
+      <div class="cancelbox__reasons" id="cancelReasons" role="radiogroup" aria-label="Причина отмены">
+        <label class="cancelbox__reason"><input class="cancelbox__radio" type="radio" name="reason" value="Неудобное время"> Неудобное время</label>
+        <label class="cancelbox__reason"><input class="cancelbox__radio" type="radio" name="reason" value="Не подходит автомобиль"> Не подходит автомобиль</label>
+        <label class="cancelbox__reason"><input class="cancelbox__radio" type="radio" name="reason" value="Нашёл другой вариант"> Нашёл другой вариант</label>
+        <label class="cancelbox__reason"><input class="cancelbox__radio" type="radio" name="reason" value="Изменились планы"> Изменились планы</label>
+        <label class="cancelbox__reason"><input class="cancelbox__radio" type="radio" name="reason" value="Другая причина"> Другая причина</label>
+      </div>
+      <p class="cancelbox__msg" id="cancelMsg" role="status"></p>
+      <div class="cancelbox__actions">
+        <button class="cancelbox__ok" id="cancelOk" type="button">ОК</button>
+        <button class="cancelbox__dismiss" id="cancelDismiss" type="button">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОКНО ПРОФИЛЯ -->
+  <div class="modal" id="profileModal" aria-hidden="true">
+    <div class="profile" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+      <button class="profile__close" id="profileClose" type="button" aria-label="Закрыть">×</button>
+      <h3 class="profile__title" id="profileTitle">Мой профиль</h3>
+      <form class="profile__form" id="profileForm" novalidate>
+        <div class="profile__photo">
+          <div class="profile__avatar" id="profileAvatar"></div>
+          <div class="profile__photo-btns">
+            <label class="profile__upload">Загрузить фото
+              <input type="file" id="profilePhoto" accept="image/*" hidden>
+            </label>
+            <button class="profile__remove" id="profileRemove" type="button">Удалить фото</button>
+          </div>
+        </div>
+        <label class="profile__label" for="profileName">ФИО</label>
+        <input class="profile__input" id="profileName" type="text" name="name" placeholder="Фамилия Имя Отчество" autocomplete="name">
+        <label class="profile__label" id="profileBirthLabel" for="profileBirth">Дата рождения</label>
+        <input class="profile__input" id="profileBirth" type="date" name="birth" autocomplete="bday">
+        <p class="profile__age" id="profileAge"></p>
+        <label class="profile__label" for="profilePhone">Телефон</label>
+        <input class="profile__input" id="profilePhone" type="tel" name="phone" placeholder="Ваш телефон" autocomplete="tel">
+        <label class="profile__label" for="profileEmail">Email (изменить нельзя)</label>
+        <input class="profile__input" id="profileEmail" type="email" name="email" disabled>
+        <button class="profile__btn" type="submit">Сохранить</button>
+        <p class="profile__msg" id="profileMsg" role="status"></p>
+      </form>
+
+      <!-- Удаление аккаунта -->
+      <div class="profile__danger">
+        <button class="profile__delete" id="profileDelete" type="button">Удалить аккаунт</button>
+        <form class="profile__confirm" id="deleteForm" hidden novalidate>
+          <p class="profile__warn">Аккаунт и все ваши бронирования будут удалены без возможности восстановления. Введите пароль для подтверждения.</p>
+          <input class="profile__input" type="password" name="password" placeholder="Пароль" autocomplete="current-password">
+          <button class="profile__confirm-btn" type="submit">Удалить навсегда</button>
+          <button class="profile__cancel" id="deleteCancel" type="button">Отмена</button>
+          <p class="profile__msg" id="deleteMsg" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="bookings.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>

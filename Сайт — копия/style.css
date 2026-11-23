@@ -1,0 +1,439 @@
+/* =====================================================
+   У каждого элемента свой класс (БЭМ), без общих селекторов.
+   Чтобы поменять один элемент — меняйте только его класс.
+   ===================================================== */
+
+/* ---------- СТРАНИЦА ---------- */
+.page{
+  margin:0;
+  font-family:'Roboto',Arial,sans-serif;
+  color:#000;
+  background:#fff;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+
+/* ---------- ШАПКА ---------- */
+.header{
+  position:sticky;top:0;z-index:50;
+  background:#fff;
+  border-bottom:1px solid #e5e5e5;
+}
+.header__inner{
+  box-sizing:border-box;
+  max-width:1240px;margin:0 auto;padding:0 20px;
+  height:89px;
+  display:flex;align-items:center;
+}
+.header__logo{display:block}
+.header__logo-img{display:block;height:42px;width:auto}
+.header__nav{display:flex;gap:117px;margin-left:247px}
+.header__link{font-size:16px;color:#000;text-decoration:none}
+.header__link:hover{text-decoration:underline}
+
+/* Вход / профиль в шапке */
+.header__auth{display:flex;align-items:center;gap:16px;margin-left:auto}
+.header__login{
+  box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;
+  height:42px;padding:0 28px;background:#000;color:#fff;
+  font-size:14px;font-weight:500;text-transform:uppercase;text-decoration:none;
+  transition:background .2s;
+}
+.header__login:hover{background:#333}
+.header__user{font-size:16px;font-weight:500;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.header__logout{
+  box-sizing:border-box;height:42px;padding:0 22px;border:1px solid #000;background:#fff;color:#000;cursor:pointer;
+  font:500 14px 'Roboto',sans-serif;text-transform:uppercase;transition:background .2s,color .2s;
+}
+.header__logout:hover{background:#000;color:#fff}
+
+/* ---------- ГЛАВНЫЙ ЭКРАН ---------- */
+.hero{
+  position:relative;
+  height:780px;
+  overflow:hidden;           /* машина выезжает из-за края и не даёт полосу прокрутки */
+}
+.hero__bg-text{
+  position:absolute;left:114px;top:10px;z-index:0;
+  font-size:400px;font-weight:900;line-height:1;
+  color:#e6e6e6;
+  user-select:none;
+}
+.hero__inner{
+  box-sizing:border-box;
+  position:relative;z-index:2;
+  max-width:1240px;margin:0 auto;padding:106px 20px 0;
+  pointer-events:none;       /* чтобы мышь доставала до машины под текстом */
+}
+.hero__content{max-width:900px;pointer-events:auto}
+.hero__title{
+  margin:0 0 56px;
+  font-size:80px;font-weight:700;line-height:1.1;
+}
+.hero__text{
+  margin:0 0 36px;max-width:480px;
+  font-size:17px;line-height:1.25;
+}
+.hero__btn{
+  box-sizing:border-box;
+  display:inline-flex;align-items:center;justify-content:center;
+  height:64px;padding:0 54px;
+  background:#000;color:#fff;
+  font-size:16px;font-weight:500;text-transform:uppercase;text-decoration:none;
+  transition:background .2s;
+}
+.hero__btn:hover{background:#333}
+.hero__btn:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+
+/* Большая машина: выезжает при загрузке и «подъезжает» при наведении мыши */
+.hero__car{
+  position:absolute;right:0;top:130px;z-index:1;
+  display:block;width:55%;max-width:1060px;
+  cursor:pointer;
+  will-change:transform;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .6s;
+  animation:hero-car-drive 2.4s cubic-bezier(.22,.61,.36,1) .2s backwards;
+}
+@keyframes hero-car-drive{
+  from{transform:translateX(50vw);opacity:0}
+  25% {opacity:1}
+  to  {transform:translateX(0);opacity:1}
+}
+
+/* ---------- АВТОПАРК ---------- */
+.fleet{padding-bottom:70px}
+.fleet__inner{
+  box-sizing:border-box;
+  max-width:1240px;margin:0 auto;padding:10px 20px 0;
+}
+.fleet__title{
+  margin:0 0 40px;
+  font-size:60px;font-weight:700;line-height:1.1;
+}
+.fleet__cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:56px 24px;
+}
+
+/* Карточка автомобиля */
+.card{text-align:center}
+.card__img{display:block;width:100%;height:210px;object-fit:cover;background:#f2f2f2;margin:0 0 18px}
+.card__name{margin:0 0 22px;font-size:24px;font-weight:500;line-height:1.25}
+.card__specs{
+  display:flex;justify-content:space-between;
+  padding:0 14px 0 30px;margin:0 0 22px;
+}
+.card__spec{display:flex;flex-direction:column;align-items:center;font-size:16px;line-height:1.25}
+.card__spec-icon{display:block;width:34px;height:34px;margin:0 0 8px}
+.card__spec-label{font-weight:700}
+.card__spec-value{font-weight:400}
+.card__btn{
+  box-sizing:border-box;
+  display:block;width:100%;height:54px;padding:0;border:0;cursor:pointer;
+  background:#000;color:#fff;
+  font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+  transition:background .2s;
+}
+.card__btn:hover{background:#333}
+.card__btn:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+
+
+/* ---------- ПОИСК И ФИЛЬТР АВТОПАРКА ---------- */
+.fleet__toolbar{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 24px}
+.fleet__search{
+  box-sizing:border-box;flex:1 1 320px;max-width:420px;height:54px;padding:0 18px;
+  border:1px solid #222;border-radius:0;background:#fff;color:#000;
+  font:400 17px 'Roboto',sans-serif;
+}
+.fleet__search:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.fleet__make{
+  box-sizing:border-box;flex:0 1 260px;height:54px;padding:0 14px;
+  border:1px solid #222;border-radius:0;background:#fff;color:#000;
+  font:400 17px 'Roboto',sans-serif;
+}
+.fleet__make:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.fleet__refresh{
+  box-sizing:border-box;height:54px;padding:0 32px;border:0;cursor:pointer;
+  background:#000;color:#fff;
+  font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+  transition:background .2s;
+}
+.fleet__refresh:hover{background:#333}
+.fleet__refresh:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.fleet__status{margin:0 0 40px;min-height:20px;font-size:16px;color:#555}
+.fleet__more{
+  box-sizing:border-box;display:block;margin:56px auto 0;height:54px;padding:0 54px;
+  border:1px solid #000;background:#fff;color:#000;cursor:pointer;
+  font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+  transition:background .2s,color .2s;
+}
+.fleet__more:hover{background:#000;color:#fff}
+.fleet__more:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.fleet__more[hidden]{display:none}
+
+/* ---------- БРОНИРОВАНИЕ ---------- */
+.booking{padding-bottom:80px;overflow-x:clip}
+.booking__inner{
+  box-sizing:border-box;
+  max-width:1240px;margin:0 auto;padding:50px 20px 0;
+}
+.booking__title{margin:0 0 14px;font-size:60px;font-weight:700;line-height:1.1}
+.booking__subtitle{margin:0 0 52px;font-size:17px;color:#555}
+.booking__row{display:flex;align-items:center;gap:60px}
+.booking__form{display:flex;flex-direction:column;gap:16px;width:344px;flex-shrink:0}
+.booking__input{
+  box-sizing:border-box;
+  width:100%;height:65px;padding:0 18px;
+  border:1px solid #222;border-radius:0;background:#fff;color:#000;
+  font:400 17px 'Roboto',sans-serif;
+}
+.booking__input::placeholder{color:#777}
+.booking__input:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.booking__input.is-error{border-color:#d32f2f}
+.booking__select{
+  box-sizing:border-box;
+  width:100%;height:65px;padding:0 18px;
+  border:1px solid #222;border-radius:0;background:#fff;color:#000;
+  font:400 17px 'Roboto',sans-serif;
+}
+.booking__select:invalid{color:#777}
+.booking__select:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.booking__select.is-error{border-color:#d32f2f}
+.booking__btn{
+  box-sizing:border-box;
+  width:100%;height:65px;padding:0;border:0;cursor:pointer;
+  background:#000;color:#fff;
+  font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+  transition:background .2s;
+}
+.booking__btn:hover{background:#333}
+.booking__btn:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.booking__msg{margin:0;min-height:18px;font-size:15px}
+.booking__msg.is-ok{color:#2e7d32}
+.booking__msg.is-error{color:#d32f2f}
+/* Rolls-Royce: выезжает, когда до него докрутили страницу, и подъезжает при наведении */
+.booking__car{
+  display:block;width:calc(100% - 404px);margin-top:-10px;
+  opacity:0;
+  cursor:pointer;
+  will-change:transform;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .6s;
+}
+/* выезд делает script.js */
+.booking__car.is-visible{opacity:1}
+
+/* ---------- ПОДВАЛ ---------- */
+.footer{height:80px;border-top:1px solid #e5e5e5}
+.footer__inner{
+  box-sizing:border-box;
+  max-width:1240px;height:100%;margin:0 auto;padding:0 20px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer__logo{display:block}
+.footer__logo-img{display:block;height:40px;width:auto}
+.footer__text{font-size:15px}
+
+/* ---------- ОКНО БРОНИРОВАНИЯ ---------- */
+.modal{
+  position:fixed;inset:0;z-index:100;
+  display:none;align-items:center;justify-content:center;
+  padding:20px;background:rgba(0,0,0,.6);
+}
+.modal.is-open{display:flex}
+.modal__box{
+  box-sizing:border-box;position:relative;
+  width:100%;max-width:420px;padding:40px;background:#fff;
+}
+.modal__close{
+  position:absolute;top:8px;right:16px;
+  background:none;border:0;font-size:32px;cursor:pointer;
+}
+.modal__title{margin:0 0 24px;font-size:24px;font-weight:500}
+.modal__form{display:flex;flex-direction:column;gap:16px}
+.modal__input{
+  box-sizing:border-box;
+  width:100%;height:58px;padding:0 18px;
+  border:1px solid #222;border-radius:0;background:#fff;color:#000;
+  font:400 17px 'Roboto',sans-serif;
+}
+.modal__input.is-error{border-color:#d32f2f}
+.modal__btn{
+  box-sizing:border-box;
+  width:100%;height:58px;padding:0;border:0;cursor:pointer;
+  background:#000;color:#fff;
+  font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+}
+.modal__btn:hover{background:#333}
+.modal__msg{margin:0;min-height:18px;font-size:15px}
+.modal__msg.is-ok{color:#2e7d32}
+.modal__msg.is-error{color:#d32f2f}
+
+/* ---------- ПРОФИЛЬ В ШАПКЕ ---------- */
+.header__profile{
+  display:inline-flex;align-items:center;gap:10px;padding:0;border:0;background:none;cursor:pointer;
+  font-family:'Roboto',sans-serif;color:#000;
+}
+.header__profile:hover .header__user{text-decoration:underline}
+.header__profile:focus-visible{outline:2px solid #2196f3;outline-offset:3px}
+.header__avatar{
+  box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:42px;height:42px;border-radius:50%;background:#000 center/cover no-repeat;color:#fff;
+  font-size:18px;font-weight:500;
+}
+
+/* ---------- ОКНО ХАРАКТЕРИСТИК МАШИНЫ ---------- */
+.card{cursor:pointer}
+.card:focus-visible{outline:2px solid #2196f3;outline-offset:6px}
+.card__img,.card__name{transition:opacity .2s}
+.card:hover .card__img{opacity:.85}
+.card:hover .card__name{text-decoration:underline}
+.cardetail{
+  box-sizing:border-box;position:relative;display:flex;flex-direction:column;
+  width:100%;max-width:560px;max-height:calc(100vh - 40px);overflow:hidden;background:#fff;
+}
+.cardetail__close{
+  position:absolute;top:8px;right:16px;z-index:2;
+  background:none;border:0;font-size:32px;cursor:pointer;
+}
+/* картинка сверху, всегда на виду */
+.cardetail__img{display:block;flex:0 0 auto;width:100%;height:260px;object-fit:contain;background:#f2f2f2}
+/* характеристики снизу, листаются вниз */
+.cardetail__body{
+  box-sizing:border-box;flex:1 1 auto;min-height:0;width:100%;padding:24px 32px 0;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.cardetail__name{margin:0 0 10px;font-size:26px;font-weight:700;line-height:1.2;padding-right:24px}
+.cardetail__lang{
+  margin:0 0 14px;padding:5px 12px;border:1px solid #bbb;border-radius:14px;background:#fff;
+  font:500 13px 'Roboto',sans-serif;color:#333;cursor:pointer;transition:background .2s,border-color .2s;
+}
+.cardetail__lang:hover{background:#f2f2f2;border-color:#888}
+.cardetail__lang:disabled{opacity:.6;cursor:wait}
+.cardetail__lang[hidden]{display:none}
+.cardetail__specs{margin:0 0 18px}
+.cardetail__row{display:flex;gap:16px;padding:8px 0;border-bottom:1px solid #e5e5e5;font-size:15px;line-height:1.3}
+.cardetail__label{flex:0 0 120px;font-weight:700}
+.cardetail__value{margin:0;flex:1;overflow-wrap:anywhere}
+.cardetail__desc{margin:0 0 14px;font-size:15px;line-height:1.4;color:#333;white-space:pre-line}
+.cardetail__desc:empty{display:none}
+.cardetail__link{display:inline-block;margin:0 0 20px;font-size:14px;color:#555}
+.cardetail__link[hidden]{display:none}
+.cardetail__book{
+  box-sizing:border-box;position:sticky;bottom:0;display:block;width:calc(100% + 64px);margin:0 -32px;height:58px;padding:0;border:0;cursor:pointer;
+  background:#000;color:#fff;font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+  transition:background .2s;
+}
+.cardetail__book:hover{background:#333}
+.cardetail__book:focus-visible{outline:2px solid #2196f3;outline-offset:-4px}
+
+/* ---------- ОКНО ПРОФИЛЯ ---------- */
+.profile{
+  box-sizing:border-box;position:relative;
+  width:100%;max-width:460px;max-height:calc(100vh - 40px);overflow:auto;padding:40px;background:#fff;
+}
+.profile__close{
+  position:absolute;top:8px;right:16px;
+  background:none;border:0;font-size:32px;cursor:pointer;
+}
+.profile__title{margin:0 0 24px;font-size:24px;font-weight:500}
+.profile__form{display:flex;flex-direction:column;gap:8px}
+.profile__photo{display:flex;align-items:center;gap:20px;margin:0 0 12px}
+.profile__avatar{
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:96px;height:96px;border-radius:50%;background:#000 center/cover no-repeat;color:#fff;
+  font-size:40px;font-weight:500;
+}
+.profile__photo-btns{display:flex;flex-direction:column;gap:8px}
+.profile__upload{
+  box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;
+  height:40px;padding:0 20px;background:#000;color:#fff;cursor:pointer;
+  font:500 14px 'Roboto',sans-serif;text-transform:uppercase;transition:background .2s;
+}
+.profile__upload:hover{background:#333}
+.profile__remove{
+  box-sizing:border-box;height:40px;padding:0 20px;border:1px solid #000;background:#fff;color:#000;cursor:pointer;
+  font:500 14px 'Roboto',sans-serif;text-transform:uppercase;
+}
+.profile__remove:hover{background:#000;color:#fff}
+.profile__label{font-size:14px;color:#555}
+.profile__input{
+  box-sizing:border-box;width:100%;height:54px;padding:0 18px;margin:0 0 6px;
+  border:1px solid #222;border-radius:0;background:#fff;color:#000;
+  font:400 17px 'Roboto',sans-serif;
+}
+.profile__input:focus-visible{outline:2px solid #2196f3;outline-offset:2px}
+.profile__input:disabled{background:#f2f2f2;color:#777}
+.profile__input.is-error{border-color:#d32f2f}
+.profile__age{margin:-2px 0 6px;font-size:14px;color:#555}
+.profile__age:empty{display:none}
+.profile__btn{
+  box-sizing:border-box;width:100%;height:58px;margin-top:8px;padding:0;border:0;cursor:pointer;
+  background:#000;color:#fff;font:500 16px 'Roboto',sans-serif;text-transform:uppercase;
+  transition:background .2s;
+}
+.profile__btn:hover{background:#333}
+.profile__msg{margin:0;min-height:18px;font-size:15px}
+.profile__msg.is-ok{color:#2e7d32}
+.profile__msg.is-error{color:#d32f2f}
+.profile__danger{margin:24px 0 0;padding:20px 0 0;border-top:1px solid #e5e5e5}
+.profile__delete{
+  padding:0;border:0;background:none;cursor:pointer;
+  color:#d32f2f;font:500 14px 'Roboto',sans-serif;text-decoration:underline;
+}
+.profile__delete[hidden]{display:none}
+.profile__confirm{display:flex;flex-direction:column;gap:8px}
+.profile__confirm[hidden]{display:none}
+.profile__warn{margin:0 0 4px;font-size:14px;line-height:1.35;color:#555}
+.profile__confirm-btn{
+  box-sizing:border-box;width:100%;height:54px;padding:0;border:0;cursor:pointer;
+  background:#d32f2f;color:#fff;font:500 15px 'Roboto',sans-serif;text-transform:uppercase;
+  transition:background .2s;
+}
+.profile__confirm-btn:hover{background:#b71c1c}
+.profile__confirm-btn:disabled{background:#999;cursor:wait}
+.profile__cancel{
+  box-sizing:border-box;width:100%;height:44px;padding:0;border:1px solid #000;background:#fff;color:#000;cursor:pointer;
+  font:500 14px 'Roboto',sans-serif;text-transform:uppercase;
+}
+.profile__cancel:hover{background:#000;color:#fff}
+
+/* ---------- АДАПТИВ ---------- */
+@media (max-width:1280px){
+  .hero{height:62vw;min-height:560px}
+  .hero__bg-text{font-size:28vw;left:4vw}
+  .hero__title{font-size:6vw}
+  .hero__car{top:11vw;width:56%}
+  .header__nav{margin-left:8vw;gap:6vw}
+  .fleet__title{font-size:48px;margin-bottom:32px}
+  .booking__title{font-size:48px}
+}
+@media (max-width:900px){
+  .header__nav{gap:28px}
+  .header__link{font-size:15px}
+  .hero{height:auto;padding-bottom:30px}
+  .hero__inner{padding-top:50px}
+  .hero__title{font-size:44px;margin-bottom:24px}
+  .hero__bg-text{font-size:200px;top:20px}
+  .hero__car{position:relative;top:auto;right:auto;width:100%;margin-top:20px}
+  .fleet__cards{grid-template-columns:repeat(2,1fr)}
+  .booking__row{flex-direction:column;align-items:stretch}
+  .booking__form{width:100%}
+  .booking__car{width:100%;margin:0}
+}
+@media (max-width:700px){
+  .cardetail__img{height:200px}
+  .cardetail__body{padding:20px 20px 0}
+  .cardetail__label{flex-basis:100px}
+  .cardetail__book{width:calc(100% + 40px);margin:0 -20px}
+}
+@media (max-width:560px){
+  .header__user{display:none}
+  .header__nav{display:none}
+  .hero__title{font-size:34px}
+  .hero__bg-text{font-size:130px}
+  .fleet__title{font-size:32px;margin-bottom:32px}
+  .booking__title{font-size:32px}
+  .fleet__cards{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .page{scroll-behavior:auto}
+}
